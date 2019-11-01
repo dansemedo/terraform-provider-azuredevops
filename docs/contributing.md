@@ -288,7 +288,7 @@ Most changes should involve updates to the client-facing reference documentation
 
 ## 7. Explore with postman
 
-Azure DevOps has a rich set of [REST API's](https://docs.microsoft.com/en-us/rest/api/azure/devops/?view=azure-devops-rest-5.1) available for integrating with Terraform.  A convenient way to explore the APIs is through [postman](https://www.getpostman.com/).  Once you have postman installed, you can clone/fork this [repo](https://github.com/rguthriemsft/azuredevops-postman-collections) and follow the instructions in the README to setup postman to be able to explore a large set of the rest API's.
+Azure DevOps has a rich set of [REST API's](https://docs.microsoft.com/en-us/rest/api/azure/devops/?view=azure-devops-rest-5.1) available for integrating with Terraform.  A convenient way to explore the APIs is through [postman](https://www.getpostman.com/).  Once you have postman installed, you can clone/fork this [repo](https://github.com/rguthriemsft/azuredevops-postman-collections) and follow the instructions in the README to setup postman to be able to explore a large set of the rest API's.  A second resource that is very helpful in understanding how to call/use the apis is the Azure DevOps Cli extension found [here](https://github.com/Azure/azure-devops-cli-extension).
 
 ### Contributing back
 
