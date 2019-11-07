@@ -51,12 +51,11 @@ func resourceProject() *schema.Resource {
 				Default:      "private",
 				ValidateFunc: validation.StringInSlice([]string{"private", "public"}, false),
 			},
-			"version_control": {
-				Type:         schema.TypeString,
+			"enable_tfvc": {
+				Type:         schema.TypeBool,
 				ForceNew:     true,
 				Optional:     true,
-				Default:      "Git",
-				ValidateFunc: validation.StringInSlice([]string{"Git", "Tfvc"}, true),
+				Default:      false,
 			},
 			"work_item_template": {
 				Type:             schema.TypeString,
@@ -240,11 +239,19 @@ func expandProject(clients *aggregatedClient, d *schema.ResourceData, forCreate 
 
 	visibility := d.Get("visibility").(string)
 
+	enableTfvc := d.Get("enable_tfvc").(bool)
+	
+	if enableTfvc == false{
+		var sourceControlType = "Git"
+	} else {
+		var sourceControlType = "Tfvc"
+	}
+
 	var capabilities *map[string]map[string]string
 	if forCreate {
 		capabilities = &map[string]map[string]string{
 			"versioncontrol": {
-				"sourceControlType": d.Get("version_control").(string),
+				"sourceControlType": sourceControlType,
 			},
 			"processTemplate": {
 				"templateTypeId": processTemplateID,
@@ -283,7 +290,7 @@ func flattenProject(clients *aggregatedClient, d *schema.ResourceData, project *
 	d.Set("project_name", *project.Name)
 	d.Set("visibility", *project.Visibility)
 	d.Set("description", description)
-	d.Set("version_control", (*project.Capabilities)["versioncontrol"]["sourceControlType"])
+	d.Set("enable_tfvc", (*project.Capabilities)["versioncontrol"]["sourceControlType"])
 	d.Set("process_template_id", processTemplateID)
 	d.Set("work_item_template", processTemplateName)
 
