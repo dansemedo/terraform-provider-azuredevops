@@ -240,18 +240,18 @@ func expandProject(clients *aggregatedClient, d *schema.ResourceData, forCreate 
 	visibility := d.Get("visibility").(string)
 
 	enableTfvc := d.Get("enable_tfvc").(bool)
+
+	scm := "Git"
 	
-	if enableTfvc == false{
-		var sourceControlType = "Git"
-	} else {
-		var sourceControlType = "Tfvc"
+	if enableTfvc != false{
+		scm = "Tfvc"
 	}
 
 	var capabilities *map[string]map[string]string
 	if forCreate {
 		capabilities = &map[string]map[string]string{
 			"versioncontrol": {
-				"sourceControlType": sourceControlType,
+				"sourceControlType": scm,
 			},
 			"processTemplate": {
 				"templateTypeId": processTemplateID,

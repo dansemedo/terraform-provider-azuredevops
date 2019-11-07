@@ -10,7 +10,7 @@ provider "azuredevops" {
 resource "azuredevops_project" "project" {
   project_name       = "Sample Project"
   visibility         = "private"
-  version_control    = "Git"
+  enable_tfvc    = false
   work_item_template = "Agile"
 }
 

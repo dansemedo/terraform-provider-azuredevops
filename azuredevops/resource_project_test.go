@@ -30,7 +30,7 @@ var testProject = core.TeamProject{
 	Visibility:  &core.ProjectVisibilityValues.Public,
 	Description: converter.String("Description"),
 	Capabilities: &map[string]map[string]string{
-		"versioncontrol":  {"sourceControlType": "SouceControlType"},
+		"versioncontrol":  {"sourceControlType": "Git"},
 		"processTemplate": {"templateTypeId": testID.String()},
 	},
 }
@@ -298,7 +298,7 @@ func TestAccAzureDevOpsProject_CreateAndUpdate(t *testing.T) {
 				Check: resource.ComposeTestCheckFunc(
 					resource.TestCheckResourceAttrSet(tfNode, "process_template_id"),
 					resource.TestCheckResourceAttr(tfNode, "project_name", projectNameFirst),
-					resource.TestCheckResourceAttr(tfNode, "version_control", "Git"),
+					resource.TestCheckResourceAttr(tfNode, "enable_tfvc", "Git"),
 					resource.TestCheckResourceAttr(tfNode, "visibility", "private"),
 					resource.TestCheckResourceAttr(tfNode, "work_item_template", "Agile"),
 					testAccCheckProjectResourceExists(projectNameFirst),
@@ -309,7 +309,7 @@ func TestAccAzureDevOpsProject_CreateAndUpdate(t *testing.T) {
 				Check: resource.ComposeTestCheckFunc(
 					resource.TestCheckResourceAttrSet(tfNode, "process_template_id"),
 					resource.TestCheckResourceAttr(tfNode, "project_name", projectNameSecond),
-					resource.TestCheckResourceAttr(tfNode, "version_control", "Git"),
+					resource.TestCheckResourceAttr(tfNode, "enable_tfvc", "Git"),
 					resource.TestCheckResourceAttr(tfNode, "visibility", "private"),
 					resource.TestCheckResourceAttr(tfNode, "work_item_template", "Agile"),
 					testAccCheckProjectResourceExists(projectNameSecond),
@@ -332,7 +332,7 @@ resource "azuredevops_project" "project" {
 	project_name       = "%s"
 	description        = "%s-description"
 	visibility         = "private"
-	version_control    = "Git"
+	enable_tfvc    = "Git"
 	work_item_template = "Agile"
 }`, projectName, projectName)
 }
